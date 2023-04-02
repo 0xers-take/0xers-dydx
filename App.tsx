@@ -1,10 +1,12 @@
-import {AppState, SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import { WebView } from 'react-native-webview';
-import {useEffect, useRef} from "react";
+import {AppState, BackHandler, SafeAreaView, StyleSheet} from 'react-native';
+import {useEffect, useRef, useState} from "react";
 import analytics from '@react-native-firebase/analytics';
+import ExchangeWebView from "./ExchangeWebView";
 
 export default function App() {
     const appState = useRef(AppState.currentState);
+    const webViewRef = useRef(null);
+    const INITIAL_URL = 'https://trade.dydx.exchange/portfolio/overview';
 
     useEffect(() => {
         const subscription = AppState.addEventListener('change', nextAppState => {
@@ -27,12 +29,12 @@ export default function App() {
         };
     }, []);
 
+
   return (
-      <SafeAreaView style={{flex: 1}}>
-        <WebView
-            style={styles.container}
-            source={{ uri: 'https://trade.dydx.exchange/' }}
-        />
+      <SafeAreaView style={styles.container}>
+          <ExchangeWebView webViewRef={webViewRef}
+                           source={{uri: INITIAL_URL}} >
+          </ExchangeWebView>
       </SafeAreaView>
   );
 }
@@ -40,8 +42,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1c1c28',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    backgroundColor: '#1c1c28'
+  }
 });

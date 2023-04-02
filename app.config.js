@@ -4,9 +4,17 @@ module.exports = ({ config }) => ({
         icon: "./assets/icon/512x512.png",
         slug: "0xers-dydx",
         owner: "0xers",
+        backgroundColor: "#1c1c28",
+        primaryColor: "#1c1c28",
         android: {
+            versionCode: 5,
             googleServicesFile: "./google-services-0xers-dydx.json",
-            package: "zeroxers.takeon.dydx"
+            package: "zeroxers.takeon.dydx",
+            blockedPermissions: ["com.google.android.gms.permission.AD_ID"],
+            backgroundColor: "#1c1c28",
+            splash: {
+                backgroundColor: "#1c1c28"
+            }
         },
         plugins: [
             "@react-native-firebase/app",
